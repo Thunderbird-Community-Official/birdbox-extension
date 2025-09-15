@@ -73,7 +73,7 @@ class DetailElement extends HTMLElement {
     this.shadowRoot.querySelector(".space-useragent").value = val.useragent ?? "";
     this.shadowRoot.querySelector(".space-notifications").checked = val.notifications ?? true;
     this.shadowRoot.querySelector(".space-startup").checked = val.startup ?? false;
-    this.shadowRoot.querySelector(".internal-links").checked = val.internalLinks?.join("\n") ?? "";
+    this.shadowRoot.querySelector(".internal-links").value = (val.internalLinks ?? []).join("\n");
 
     this.shadowRoot.querySelector(".space-useragent-type").value = val.useragent ? "custom" : "auto";
   }
