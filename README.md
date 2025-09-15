@@ -6,9 +6,9 @@ Birdbox
 
 Birdbox allows you to organize your communication tools into Thunderbird's spaces toolbar.
 
-Thunderbird's mission in cludes creating an interoperable and extensible open-source platform for
+Thunderbird's mission includes creating an interoperable and extensible open-source platform for
 messaging and managing personal information. Birdbox devilvers on this promise by bridging the gap
-to all the web communication mechanisms not supported by Thunderbird's core.
+to all of the web communication mechanisms not currently supported by Thunderbird's core.
 
 This add-on is an experiment driven by the community. Your contribution is more than welcome.
 
