@@ -79,13 +79,33 @@ export async function loadAddSpaces() {
   let cardMap = {};
 
   for (let spaceData of spaces) {
-    let card = cardTemplate.content.cloneNode(true);
-    card.querySelector("img").src = browser.runtime.getURL(`/recipes/${spaceData.recipeId}/icon.svg`);
-    card.querySelector(".name").textContent = spaceData.title;
-    card.querySelector(".card")._spaceData = spaceData;
+    // Clone template content, then get the real element from the fragment
+    const frag = cardTemplate.content.cloneNode(true);
+    const cardEl = frag.firstElementChild;
 
-    cardMap[spaceData.recipeId] = card.firstElementChild;
-    allCardsContainer.appendChild(card);
+    // Populate visuals
+    cardEl.querySelector("img").src = browser.runtime.getURL(`/recipes/${spaceData.recipeId}/icon.svg`);
+    cardEl.querySelector(".name").textContent = spaceData.title;
+
+    // A11y and keyboard activation
+    cardEl.setAttribute("tabindex", "0");
+    cardEl.setAttribute("role", "button");
+    cardEl.setAttribute("aria-label", spaceData.title);
+    cardEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+        e.preventDefault();
+        cardEl.click();
+      }
+    });
+
+    // Store data on the element
+    cardEl._spaceData = spaceData;
+
+    // Keep a map so we can build the Featured list
+    cardMap[spaceData.recipeId] = cardEl;
+
+    // Append the fragment to the DOM
+    allCardsContainer.appendChild(frag);
   }
 
   for (let recipeId of featured) {
